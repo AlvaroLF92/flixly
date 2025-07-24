@@ -1,0 +1,86 @@
+.movie-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* espacio entre flechas y carrusel */
+  margin-bottom: 32px;
+}
+
+.movie-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding-bottom: 16px;
+  scroll-behavior: smooth; /* para scroll suave */
+  flex-grow: 1; /* que el row tome todo el ancho posible */
+  
+  /* ocultar scrollbar */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.movie-card {
+  flex: 0 0 auto; /* que no se encoja ni crezca */
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.2);
+  background: white;
+  padding: 8px;
+  text-align: center;
+
+  img {
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 8px 0 4px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(139, 138, 138, 0.3);
+  }
+}
+
+.arrow {
+  background-color: rgba(137, 135, 135, 0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  border-radius: 45%;
+  user-select: none;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.arrow:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.arrow.left {
+  margin-right: 8px;
+}
+
+.arrow.right {
+  margin-left: 8px;
+}

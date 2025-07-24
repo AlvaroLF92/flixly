@@ -1,0 +1,26 @@
+.menu-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #211f1f;
+  padding: 1rem;
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.menu-container ul {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.menu-container ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.menu-container ul li a:hover {
+  color: #d7d5d5;
+}

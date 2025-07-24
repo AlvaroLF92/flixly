@@ -1,0 +1,24 @@
+<div class="header-container">
+  <img src="assets/icons/Flixly_1.png" alt="Flixly Logo" class="app-logo" />
+
+  <div class="menu-container">
+    <ng-container *ngIf="isAuthenticated$ | async; else publicMenu">
+      <app-private-menu></app-private-menu>
+    </ng-container>
+
+    <ng-template #publicMenu>
+      <app-public-menu></app-public-menu>
+    </ng-template>
+  </div>
+
+  <div class="user-controls">
+    <ng-container *ngIf="isAuthenticated$ | async; else loginBlock">
+      <span class="user-greeting">Hola, {{ userName$ | async }}</span>
+      <button (click)="logout()">Cerrar sesión</button>
+    </ng-container>
+
+    <ng-template #loginBlock>
+      <button routerLink="/login">Iniciar sesión</button>
+    </ng-template>
+  </div>
+</div>

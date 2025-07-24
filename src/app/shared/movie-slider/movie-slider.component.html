@@ -1,0 +1,9 @@
+<h2>{{ title }}</h2>
+<div class="slider-container">
+  <div class="slider">
+    <div class="movie-card" *ngFor="let movie of movies">
+      <img [src]="'https://image.tmdb.org/t/p/w300' + movie.poster_path" />
+      <p>{{ movie.title }}</p>
+    </div>
+  </div>
+</div>
