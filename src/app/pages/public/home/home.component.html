@@ -1,7 +1,9 @@
 <h2>Populares</h2>
 <div class="movie-carousel">
-  <button class="arrow left" (click)="scrollLeft(popularScroll)">‹</button>
-  
+  <div class="arrow-container">
+    <button class="arrow left" (click)="scrollLeft(popularScroll)">‹</button>
+  </div>
+
   <div class="movie-row" #popularScroll>
     <div *ngFor="let movie of popularMovies" class="movie-card">
       <img
@@ -9,18 +11,22 @@
         [alt]="movie.title"
       />
       <h3>{{ movie.title }}</h3>
-      <p>Año: {{ movie.release_date | date: 'yyyy' }}</p>
+      <p>Año: {{ movie.release_date | date : "yyyy" }}</p>
       <p>Rating: {{ movie.vote_average }} / 10</p>
     </div>
   </div>
-  
-  <button class="arrow right" (click)="scrollRight(popularScroll)">›</button>
+
+  <div class="arrow-container">
+    <button class="arrow right" (click)="scrollRight(popularScroll)">›</button>
+  </div>
 </div>
 
 <h2>Mejor valoradas</h2>
 <div class="movie-carousel">
-  <button class="arrow left" (click)="scrollLeft(topRatedScroll)">‹</button>
-  
+  <div class="arrow-container">
+    <button class="arrow left" (click)="scrollLeft(topRatedScroll)">‹</button>
+  </div>
+
   <div class="movie-row" #topRatedScroll>
     <div *ngFor="let movie of topRatedMovies" class="movie-card">
       <img
@@ -28,18 +34,22 @@
         [alt]="movie.title"
       />
       <h3>{{ movie.title }}</h3>
-      <p>Año: {{ movie.release_date | date: 'yyyy' }}</p>
+      <p>Año: {{ movie.release_date | date : "yyyy" }}</p>
       <p>Rating: {{ movie.vote_average }} / 10</p>
     </div>
   </div>
-  
-  <button class="arrow right" (click)="scrollRight(topRatedScroll)">›</button>
+
+  <div class="arrow-container">
+    <button class="arrow right" (click)="scrollRight(topRatedScroll)">›</button>
+  </div>
 </div>
 
 <h2>Próximas películas</h2>
 <div class="movie-carousel">
-  <button class="arrow left" (click)="scrollLeft(upcomingScroll)">‹</button>
-  
+  <div class="arrow-container">
+    <button class="arrow left" (click)="scrollLeft(upcomingScroll)">‹</button>
+  </div>
+
   <div class="movie-row" #upcomingScroll>
     <div *ngFor="let movie of upcomingMovies" class="movie-card">
       <img
@@ -47,10 +57,12 @@
         [alt]="movie.title"
       />
       <h3>{{ movie.title }}</h3>
-      <p>Año: {{ movie.release_date | date: 'yyyy' }}</p>
+      <p>Año: {{ movie.release_date | date : "yyyy" }}</p>
       <p>Rating: {{ movie.vote_average }} / 10</p>
     </div>
   </div>
-  
-  <button class="arrow right" (click)="scrollRight(upcomingScroll)">›</button>
+
+  <div class="arrow-container">
+    <button class="arrow right" (click)="scrollRight(upcomingScroll)">›</button>
+  </div>
 </div>

@@ -59,7 +59,7 @@ export class LoginComponent {
         .pipe(delay(2000))
         .subscribe((isLoggedIn) => {
           if (isLoggedIn) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/home']);
             this.isLoading = false;
             console.log('Te has logeado correctamente');
           } else {

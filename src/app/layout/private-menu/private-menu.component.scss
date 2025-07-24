@@ -1,9 +1,12 @@
 .menu-container {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 1.5rem;
   background-color: #211f1f;
   padding: 1rem;
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .menu-container ul {

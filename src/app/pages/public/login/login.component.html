@@ -1,32 +1,21 @@
 <div class="login-container">
-  <div class="login-card">
-    <img src="assets/icons/Flixly_2.png" alt="Flixly Logo" class="app-logo" />
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <div class="full-width">
-        <div>Usuario</div>
-        <input matInput formControlName="userName" placeholder="user" />
-      </div>
+  <img src="assets/icons/Flixly_1.png" alt="Logo" class="app-logo" />
 
-      <div appearance="outline" class="full-width">
-        <div>Contraseña</div>
-        <input
-          matInput
-          type="password"
-          formControlName="passWord"
-          placeholder="1234"
-        />
-      </div>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-card">
+    <input type="text" formControlName="userName" placeholder="Usuario" />
+    <input type="password" formControlName="passWord" placeholder="Contraseña" />
 
-      <!-- Botón con spinner al lado -->
-      <button mat-raised-button color="warnw" type="submit" [disabled]="isLoading" >
-        <span *ngIf="!isLoading">Login</span>
-      </button>
-      
-    </form>
+    <button type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Cargando...' : 'Iniciar sesión' }}
+    </button>
 
-    <!-- Mensaje de error en caso de login incorrecto -->
     <div *ngIf="loginError" class="error-text">
-      Usuario o contraseña incorrectos
+      Credenciales incorrectas
     </div>
+  </form>
+
+  <div class="default-credentials">
+    <p><strong>Usuario:</strong> user</p>
+    <p><strong>Contraseña:</strong> 1234</p>
   </div>
 </div>
