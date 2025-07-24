@@ -1,64 +1,88 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+
+interface AuthUser {
+  userName: string;
+  passWord: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly storageKey = 'authUser';
+
   private _isAuthenticatedSubject = new BehaviorSubject<boolean>(
     this.getAuthStateFromLocalStorage()
   );
-  private _userNameSubject = new BehaviorSubject<string>(
-    localStorage.getItem('userName') || ''
+
+  private _userSubject = new BehaviorSubject<AuthUser>(
+    this.getUserFromLocalStorage()
   );
 
   isAuthenticated$: Observable<boolean> =
     this._isAuthenticatedSubject.asObservable();
-  userName$: Observable<string> = this._userNameSubject.asObservable();
+  userName$: Observable<string> = this._userSubject.asObservable().pipe(
+    // Emitimos solo el nombre de usuario
+    map((user) => user.userName)
+  );
 
-  constructor(public router: Router) {}
+  constructor(private router: Router) {
+    // Si no hay credenciales guardadas, se inicializan las por defecto
+    if (!localStorage.getItem(this.storageKey)) {
+      this.setUserToLocalStorage({ userName: 'user', passWord: '1234' });
+    }
+  }
+
+  private getUserFromLocalStorage(): AuthUser {
+    const stored = localStorage.getItem(this.storageKey);
+    return stored ? JSON.parse(stored) : { userName: 'user', passWord: '1234' };
+  }
+
+  private setUserToLocalStorage(user: AuthUser): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(user));
+    this._userSubject.next(user);
+  }
 
   private getAuthStateFromLocalStorage(): boolean {
     return localStorage.getItem('isAuthenticated') === 'true';
   }
 
-  login({
-    userName,
-    passWord,
-  }: {
-    userName: string;
-    passWord: string;
-  }): boolean {
-    const defaultUserName = 'user';
-    const defaultPassWord = '1234';
+  login(credentials: { userName: string; passWord: string }): boolean {
+    const storedUser = this.getUserFromLocalStorage();
 
-    if (userName === defaultUserName && passWord === defaultPassWord) {
+    const isValid =
+      credentials.userName === storedUser.userName &&
+      credentials.passWord === storedUser.passWord;
+
+    if (isValid) {
       this._isAuthenticatedSubject.next(true);
-      this._userNameSubject.next(userName);
       localStorage.setItem('isAuthenticated', 'true');
-      localStorage.setItem('userName', userName);
+      this._userSubject.next(storedUser);
       return true;
     }
+
     return false;
   }
 
-  updateUserName(newUserName: string): void {
-    localStorage.setItem('userName', newUserName);
-    this._userNameSubject.next(newUserName);
+  updateCredentials(newCredentials: AuthUser): void {
+    this.setUserToLocalStorage(newCredentials);
   }
 
   isLoggedIn(): boolean {
-
     return this._isAuthenticatedSubject.value;
   }
 
   logOut(): void {
     this._isAuthenticatedSubject.next(false);
-    this._userNameSubject.next('');
     localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('userName');
     this.router.navigate(['/login']);
+  }
+
+  getCurrentUser(): AuthUser {
+    return this._userSubject.value;
   }
 }

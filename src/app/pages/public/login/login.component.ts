@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -8,7 +8,7 @@ import {
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { SharedModule } from '../../../core/shared/shared.module';
 
@@ -19,13 +19,15 @@ import { SharedModule } from '../../../core/shared/shared.module';
   styleUrls: ['./login.component.scss'],
   standalone: true,
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   loginError = false;
   isLoading = false;
 
-  defaultUsername: string;
-  defaultPassword: string;
+  defaultUsername: string = '';
+  defaultPassword: string = '';
+
+  private userSub?: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -36,9 +38,20 @@ export class LoginComponent {
       userName: ['', Validators.required],
       passWord: ['', Validators.required],
     });
+  }
 
-    this.defaultUsername = 'user';
-    this.defaultPassword = '1234';
+  ngOnInit() {
+    this.userSub = this.authService.userName$.subscribe((userName) => {
+      this.defaultUsername = userName;
+      this.loginForm.patchValue({ userName });
+    });
+    const currentUser = this.authService.getCurrentUser();
+    this.defaultPassword = currentUser.passWord;
+    this.loginForm.patchValue({ passWord: this.defaultPassword });
+  }
+
+  ngOnDestroy() {
+    this.userSub?.unsubscribe();
   }
 
   get userName() {
@@ -58,14 +71,12 @@ export class LoginComponent {
       of(this.authService.login({ userName, passWord }))
         .pipe(delay(2000))
         .subscribe((isLoggedIn) => {
+          this.isLoading = false;
+
           if (isLoggedIn) {
             this.router.navigate(['/home']);
-            this.isLoading = false;
-            console.log('Te has logeado correctamente');
           } else {
             this.loginError = true;
-            this.isLoading = false;
-            console.log('Ha habido un problema con el login');
           }
         });
     }

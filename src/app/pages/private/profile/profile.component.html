@@ -1,0 +1,15 @@
+<div class="profile-container">
+  <h2>Mi Perfil</h2>
+  <form (ngSubmit)="onSave()">
+    <label>
+      Usuario:
+      <input type="text" [(ngModel)]="userName" name="userName" required />
+    </label>
+    <label>
+      Contraseña:
+      <input type="password" [(ngModel)]="passWord" name="passWord" required />
+    </label>
+    <button type="submit">Guardar cambios</button>
+  </form>
+</div>
+

@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #211f1f;
-  padding: 0.5rem 1rem;  
+  padding: 0.5rem 1rem;
 }
 
 .app-logo {
@@ -11,30 +11,24 @@
   cursor: pointer;
 }
 
-.menu-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
 .user-controls {
   display: flex;
   align-items: center;
   gap: 1rem;
   color: white;
-}
 
-.user-controls button {
-  color: white;
-  background: transparent;
-  border: 1px solid white;
-  padding: 0.3rem 0.7rem;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
+  button {
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 
-.user-controls button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  transform: scale(1.1);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: scale(1.1);
+    }
+  }
 }

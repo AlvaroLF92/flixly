@@ -22,6 +22,14 @@ export const routes: Routes = [
         (m) => m.AboutComponent
       ),
   },
+  {
+  path: 'profile',
+  canActivate: [AuthGuard],
+  loadComponent: () =>
+    import('./pages/private/profile/profile.component').then(
+      (m) => m.ProfileComponent
+    ),
+},
 
   { path: '**', redirectTo: 'login' },
 ];

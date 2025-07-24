@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { MovieService, Movie } from '../../../core/services/movie.service';
-import { MovieSliderComponent } from '../../../shared/movie-slider/movie-slider.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -1,10 +1,12 @@
+@use "sass:color";
+
+
 .menu-container {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #211f1f;
   padding: 1rem;
-  gap: 2rem;
   width: 100%;
   box-sizing: border-box;
 }
@@ -12,15 +14,19 @@
 .menu-container ul {
   display: flex;
   list-style: none;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 .menu-container ul li a {
   color: white;
   text-decoration: none;
   font-weight: bold;
+  padding: 1rem;
 }
 
-.menu-container ul li a:hover {
-  color: #d7d5d5;
+.menu-container ul li:hover {
+  border-radius: 50%;
+    background-color: color.adjust(#3f3e3e, $alpha: -0.2);
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
 }

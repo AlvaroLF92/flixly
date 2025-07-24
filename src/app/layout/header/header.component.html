@@ -1,7 +1,7 @@
 <div class="header-container">
   <img src="assets/icons/Flixly_1.png" alt="Flixly Logo" class="app-logo" />
 
-  <div class="menu-container">
+  <div>
     <ng-container *ngIf="isAuthenticated$ | async; else publicMenu">
       <app-private-menu></app-private-menu>
     </ng-container>
